@@ -4,7 +4,8 @@
   "description": "Contains NodeJS codes for the backend of the site",
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon index.js"
+    "start-dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Bijay Khapung",
   "license": "ISC",

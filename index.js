@@ -25,7 +25,9 @@ const InMemorySessionStore = require("./sessionStore");
 const Friend = require('./schemas/Friend');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: 'https://luvit.onrender.com'
+}));
 app.use(bodyParser.json());
 
 const sessionStore = new InMemorySessionStore();
