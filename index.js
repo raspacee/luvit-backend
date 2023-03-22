@@ -25,16 +25,25 @@ const InMemorySessionStore = require("./sessionStore");
 const Friend = require('./schemas/Friend');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-  origin: 'https://luvit.onrender.com'
-}));
+const whitelist = ['https://luvit.onrender.com', 'http://localhost:3000'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 const sessionStore = new InMemorySessionStore();
 
+const frontendApi = process.env.NODE_ENV === 'production' ? "https://luvit.onrender.com" : 'http://localhost:3000';
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://luvit.onrender.com",
+    origin: frontendApi
   },
 });
 
